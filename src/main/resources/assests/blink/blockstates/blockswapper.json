@@ -1,0 +1,17 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "blink:blockswapper"
+  },
+  "variants": {
+    "inventory": [{
+      "transform": "forge:default-block",
+      "model": "blink:blockswapper"
+    }],
+    "inventory": [{
+      "model": "blink:blockswapper",
+      "transform": "forge:default-block"
+    }]
+  }
+}

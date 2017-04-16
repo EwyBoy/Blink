@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 /**
  * Created by EwyBoy
  */
-public class BlockSwapper extends BlockBase {
+public class BlockSwapper extends BlockBaseModeled {
 
     public BlockSwapper(Material material) {
         super(material);

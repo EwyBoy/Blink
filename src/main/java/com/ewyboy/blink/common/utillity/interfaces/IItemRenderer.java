@@ -8,8 +8,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  **/
 public interface IItemRenderer {
 
+    int[] modelMetas();
+
     @SideOnly(Side.CLIENT)
     void registerItemRenderer();
 
-    int[] modelMetas();
 }

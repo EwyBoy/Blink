@@ -18,17 +18,17 @@ public class ItemBase extends Item implements IItemRenderer {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void registerItemRenderer() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-    }
-
-    @Override
     public int[] modelMetas() {
         return new int[0];
     }
 
     public String itemName(int meta) {
         return null;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerItemRenderer() {
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
     }
 }

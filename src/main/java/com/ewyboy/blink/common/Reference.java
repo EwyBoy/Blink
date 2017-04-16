@@ -12,7 +12,7 @@ public class Reference {
     }
 
     public static final class Paths {
-        public static final String COMMON_PROXY = "com.ewyboy.blink.proxy.CommonProxy";
         public static final String CLIENT_PROXY = "com.ewyboy.blink.proxy.ClientProxy";
+        public static final String COMMON_PROXY = "com.ewyboy.blink.proxy.CommonProxy";
     }
 }

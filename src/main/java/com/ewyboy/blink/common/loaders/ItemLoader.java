@@ -1,6 +1,5 @@
 package com.ewyboy.blink.common.loaders;
 
-import com.ewyboy.blink.common.Items.ItemBase;
 import com.ewyboy.blink.common.Items.ItemBlitzer;
 import com.ewyboy.blink.common.utillity.interfaces.IItemRenderer;
 import net.minecraft.item.Item;
@@ -22,7 +21,6 @@ public class ItemLoader {
     public static final HashMap<String, Item> ITEMS = new HashMap<>();
 
     /**     Items       **/
-    public static final ItemBase testItem = new ItemBase("testItem");
     public static final ItemBlitzer blitzer = new ItemBlitzer("blitzer");
 
     public static void init() {

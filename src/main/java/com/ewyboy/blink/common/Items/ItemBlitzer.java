@@ -1,6 +1,5 @@
 package com.ewyboy.blink.common.Items;
 
-import com.ewyboy.blink.common.Logger;
 import com.ewyboy.blink.common.utillity.helpers.PlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumActionResult;
@@ -25,9 +24,6 @@ public class ItemBlitzer extends ItemBase {
 
             BlockPos targetPos = pos;
 
-            switch (facing) {
-                case NORTH: targetPos.add(5, 0, 0);
-            }
 
             if (player.isSprinting()) {
                 player.setPositionAndUpdate(targetPos.getX(), targetPos.getY(), targetPos.getZ());

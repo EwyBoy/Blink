@@ -1,5 +1,6 @@
 package com.ewyboy.blink;
 
+import com.ewyboy.blink.common.loaders.*;
 import com.ewyboy.blink.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
