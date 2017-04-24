@@ -1,6 +1,5 @@
 package com.ewyboy.blink.common.loaders;
 
-import com.ewyboy.blink.common.Blocks.BlockBase;
 import com.ewyboy.blink.common.Blocks.BlockSwapper;
 import com.ewyboy.blink.common.utillity.interfaces.IBlockRenderer;
 import net.minecraft.block.Block;
@@ -24,8 +23,7 @@ public class BlockLoader {
     public static final HashMap<String, Block> BLOCKS = new HashMap<>();
 
     //Blocks
-    public static final BlockBase testBlock = new BlockBase(Material.DRAGON_EGG);
-    public static final BlockSwapper swapper = new BlockSwapper(Material.DRAGON_EGG);
+    public static final BlockSwapper swapper = new BlockSwapper(Material.IRON);
 
     public static void init() {
         registerBlocks();

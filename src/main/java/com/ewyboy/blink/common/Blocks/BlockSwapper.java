@@ -1,14 +1,16 @@
 package com.ewyboy.blink.common.Blocks;
 
 import com.ewyboy.blink.common.Logger;
+import com.ewyboy.blink.common.utillity.helpers.ParticleEngineHelper;
+import com.ewyboy.blink.common.utillity.helpers.PlayerUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 /**
@@ -21,80 +23,54 @@ public class BlockSwapper extends BlockBaseModeled {
         setHardness(3.0f);
     }
 
-   /* @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entity) {
-        if (entity instanceof EntityPlayer) {
+    public static BlockPos setTargetPos(BlockPos targetPos, EnumFacing facing, int range) {
+        switch (facing) {
+            case NORTH: targetPos = new BlockPos(targetPos.add(0,0,range)); break;
+            case SOUTH: targetPos = new BlockPos(targetPos.add(0,0,-range)); break;
+            case EAST: targetPos = new BlockPos(targetPos.add(-range,0,0)); break;
+            case WEST: targetPos = new BlockPos(targetPos.add(range,0,0)); break;
 
-            EntityPlayer player = (EntityPlayer) entity;
-
-            int playerLooking = MathHelper.floor((double) ((player.rotationYaw * 4f) / 360f) + 0.5D) & 3;
-            Logger.info(playerLooking);
-
-            BlockPos targetPos = new BlockPos(pos);
-
-            switch (playerLooking) {
-                case 0: targetPos.add(0,0, 2);
-                case 1: targetPos.add(-2,0, 0);
-                case 2: targetPos.add(0,0, -2);
-                case 3: targetPos.add(2,0, 0);
-
-                default: targetPos.add(0,0,0);
-            }
-
-            if (player.isSneaking()) {
-                player.setPositionAndUpdate(targetPos.getX(), targetPos.getY() + 0.5D, targetPos.getZ());
-
-            }
+            default: targetPos = new BlockPos(targetPos.add(0,0,0)); break;
         }
-    }*/
-
-    @Override
-    public void onEntityWalk(World worldIn, BlockPos pos, Entity entity) {
-        if (entity instanceof EntityPlayer) {
-
-            EntityPlayer player = (EntityPlayer) entity;
-
-            int playerLooking = MathHelper.floor((double) ((player.rotationYaw * 4f) / 360f) + 0.5D) & 3;
-            Logger.info(playerLooking);
-
-            BlockPos targetPos = new BlockPos(pos);
-
-            switch (playerLooking) {
-                case 0: targetPos.add(0,0, 2);
-                case 1: targetPos.add(-2,0, 0);
-                case 2: targetPos.add(0,0, -2);
-                case 3: targetPos.add(2,0, 0);
-
-                default: targetPos.add(0,0,0);
-            }
-
-            if (player.isSneaking()) {
-                player.setPositionAndUpdate(targetPos.getX(), targetPos.getY() + 0.5D, targetPos.getZ());
-
-            }
-        }
+        return targetPos;
     }
-
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        Logger.info("facing: " + facing);
+        Logger.info(facing);
+        IBlockState selectedBlock = world.getBlockState(pos.up());
+        BlockPos selectedBlockPos = pos.up();
 
-        BlockPos target = new BlockPos(pos.up());
+        selectedBlockPos = setTargetPos(selectedBlockPos, facing, 2);
+        IBlockState targetBlock = world.getBlockState(selectedBlockPos);
 
-        switch (facing) {
-            case UP:    target.add(0,2,0);
-            case DOWN:  target.add(0,-2,0);
-            case NORTH:  target.add(2,0,0);
-            case SOUTH:  target.add(-2,0,0);
-            case EAST:  target.add(0,0,2);
-            case WEST:  target.add(0,0,-2);
+        world.setBlockState(pos.up(), targetBlock);
+        world.setBlockState(selectedBlockPos, selectedBlock);
+
+        ParticleEngineHelper.spawnHelixEffect(world, selectedBlockPos.getX(), selectedBlockPos.getY(), selectedBlockPos.getZ(), EnumParticleTypes.CRIT_MAGIC, 0.4);
+
+        return true;
+    }
+
+    @Override
+    public void onEntityWalk(World world, BlockPos pos, Entity entity) {
+        if (entity instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) entity;
+            EnumFacing facing = PlayerUtils.getPlayerFacing(player);
+            BlockPos targetPos = pos;
+            entity.setSneaking(true);
+
+            targetPos = setTargetPos(targetPos.up(), facing, 2);
+
+            if (world.getBlockState(targetPos.down()).getBlock().equals(this)) {
+                ParticleEngineHelper.spawnParticle(world, targetPos.getX(), targetPos.getY(), targetPos.getZ(), EnumParticleTypes.CRIT_MAGIC, 0f,0.35f,0f);
+
+                if (entity.isSneaking()) {
+                    ParticleEngineHelper.spawnHelixEffect(world, targetPos.getX(), targetPos.getY(), targetPos.getZ(), EnumParticleTypes.CRIT_MAGIC, 10);
+                    ParticleEngineHelper.spawnHelixEffect(world, targetPos.getX(), targetPos.getY(), targetPos.getZ(), EnumParticleTypes.CRIT_MAGIC, 10);
+                    player.setPositionAndUpdate(targetPos.getX() + 0.5, targetPos.getY() + 0.25, targetPos.getZ() + 0.5);
+                }
+            }
         }
-
-        IBlockState targetBlock = world.getBlockState(pos.up());
-        world.setBlockToAir(pos.up());
-        world.setBlockState(target, targetBlock);
-
-        return false;
     }
 }

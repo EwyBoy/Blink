@@ -1,0 +1,12 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "normal": {
+      "model": "blink:blockswapper"
+    },
+    "inventory": {
+      "model": "blink:blockswapper",
+      "transform": "forge:default-block"
+    }
+  }
+}
