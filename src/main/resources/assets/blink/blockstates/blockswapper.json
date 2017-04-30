@@ -1,12 +1,29 @@
 {
   "forge_marker": 1,
-  "variants": {
-    "normal": {
-      "model": "blink:blockswapper"
+  "defaults": {
+    "model": "forge:multi-layer",
+    "custom": {
+      "base": "blink:blockswapper#base",
+      "Solid": "blink:blockswapper#base",
+      "Translucent": "blink:blockswapper#core"
     },
-    "inventory": {
-      "model": "blink:blockswapper",
-      "transform": "forge:default-block"
-    }
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}],
+    "facing": {
+      "north": { },
+      "south": {"y": 180},
+      "west": {"y": 270},
+      "east": {"y": 90}
+    },
+    "base": [{
+      "custom": {"flip-v": true},
+      "model": "blink:blockswappersolid"
+    }],
+    "core": [{
+      "model": "blink:blockswappertranslucent"
+    }]
   }
 }

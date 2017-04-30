@@ -1,10 +1,14 @@
-package com.ewyboy.blink.common.Items;
+package com.ewyboy.blink.common.items;
 
+import com.ewyboy.blink.common.utillity.helpers.ParticleEngineHelper;
 import com.ewyboy.blink.common.utillity.helpers.PlayerUtils;
+import com.ewyboy.blink.common.utillity.helpers.PositionHelper;
+import com.ewyboy.blink.common.utillity.helpers.SoundHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -19,18 +23,18 @@ public class ItemBlitzer extends ItemBase {
 
     @Override
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        if (!world.isRemote) {
-            EnumFacing facing = PlayerUtils.getPlayerFacing(player);
+        int range;
+        range = player.isSprinting() ? 2 : 1;
 
-            BlockPos targetPos = pos;
+        BlockPos targetPos = PositionHelper.setTargetPos(pos, side, range);
 
-
-            if (player.isSprinting()) {
-                player.setPositionAndUpdate(targetPos.getX(), targetPos.getY(), targetPos.getZ());
-            }
-
+        if (PlayerUtils.canPlayerFit(world, targetPos)) {
+            player.setPositionAndUpdate(targetPos.getX() + 0.5, targetPos.getY() + 0.25, targetPos.getZ() + 0.5);
+            SoundHelper.playTeleportSound(world, targetPos);
+            ParticleEngineHelper.spawnHelixEffect(world, targetPos.getX(), side == EnumFacing.DOWN ? targetPos.getY() : targetPos.down().getY(), targetPos.getZ(), EnumParticleTypes.PORTAL, 1);
+            return EnumActionResult.SUCCESS;
+        } else {
+            return EnumActionResult.FAIL;
         }
-
-        return EnumActionResult.FAIL;
     }
 }

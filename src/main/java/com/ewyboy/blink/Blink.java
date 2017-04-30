@@ -1,7 +1,7 @@
 package com.ewyboy.blink;
 
-import com.ewyboy.blink.common.loaders.*;
 import com.ewyboy.blink.proxy.CommonProxy;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -15,6 +15,12 @@ import static com.ewyboy.blink.common.Reference.Paths.COMMON_PROXY;
 
 @Mod(modid = MOD_ID, name = MOD_NAME, version = VERSION)
 public class Blink {
+
+    public Blink() {
+        FluidRegistry.enableUniversalBucket();
+    }
+
+    static {FluidRegistry.enableUniversalBucket();}
 
     @Mod.Instance(MOD_ID)
     public static Blink INSTANCE;

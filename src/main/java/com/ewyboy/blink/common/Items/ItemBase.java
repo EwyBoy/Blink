@@ -1,4 +1,4 @@
-package com.ewyboy.blink.common.Items;
+package com.ewyboy.blink.common.items;
 
 import com.ewyboy.blink.common.loaders.CreativeTabLoader;
 import com.ewyboy.blink.common.utillity.interfaces.IItemRenderer;

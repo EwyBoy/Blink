@@ -1,4 +1,4 @@
-package com.ewyboy.blink.common.Blocks;
+package com.ewyboy.blink.common.blocks;
 
 import com.ewyboy.blink.common.loaders.CreativeTabLoader;
 import com.ewyboy.blink.common.utillity.interfaces.IBlockRenderer;

@@ -1,4 +1,4 @@
-package com.ewyboy.blink.common.Blocks;
+package com.ewyboy.blink.common.blocks;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

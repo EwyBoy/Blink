@@ -1,5 +1,6 @@
 package com.ewyboy.blink.common.loaders;
 
+import com.ewyboy.blink.common.tiles.TileSwapper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -13,6 +14,8 @@ import java.util.Locale;
 public class TileEntityLoader {
 
     public static final HashMap<String, TileEntity> TILE_ENTITIES = new HashMap<>();
+
+    public static TileSwapper swapper = new TileSwapper();
 
     public static void init() {
         registerTileEntity();

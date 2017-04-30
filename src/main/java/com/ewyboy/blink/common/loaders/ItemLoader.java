@@ -1,6 +1,7 @@
 package com.ewyboy.blink.common.loaders;
 
-import com.ewyboy.blink.common.Items.ItemBlitzer;
+import com.ewyboy.blink.common.items.ItemBlitzer;
+import com.ewyboy.blink.common.items.ItemRodOfAges;
 import com.ewyboy.blink.common.utillity.interfaces.IItemRenderer;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -20,8 +21,9 @@ public class ItemLoader {
 
     public static final HashMap<String, Item> ITEMS = new HashMap<>();
 
-    /**     Items       **/
+    /**     items       **/
     public static final ItemBlitzer blitzer = new ItemBlitzer("blitzer");
+    public static final ItemRodOfAges rodOfAges = new ItemRodOfAges("rodOfAges");
 
     public static void init() {
         registerItems();

@@ -1,10 +1,12 @@
 package com.ewyboy.blink.common.loaders;
 
-import com.ewyboy.blink.common.Blocks.BlockSwapper;
+import com.ewyboy.blink.common.blocks.BlockSwapper;
 import com.ewyboy.blink.common.utillity.interfaces.IBlockRenderer;
+import com.ewyboy.blink.fluids.BlinkFluidBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -22,8 +24,9 @@ public class BlockLoader {
 
     public static final HashMap<String, Block> BLOCKS = new HashMap<>();
 
-    //Blocks
+    //blocks
     public static final BlockSwapper swapper = new BlockSwapper(Material.IRON);
+    public static final BlockFluidClassic liquid_ender = new BlinkFluidBlock(FluidLoader.LIQUID_ENDER, Material.WATER);
 
     public static void init() {
         registerBlocks();
